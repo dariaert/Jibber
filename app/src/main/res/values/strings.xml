@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Jibber</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings_default_username">Daria Mozhaeva</string>
+    <string name="settings_default_status">Online</string>
+    <string name="settings_text_account">Account</string>
+    <string name="settings_default_number">+78004170118</string>
+    <string name="settings_label_phone_number">Tap to change phone number</string>
+    <string name="settings_default_login">da_erton</string>
+    <string name="settings_label_login">Username</string>
+    <string name="settings_default_bio">Bio</string>
+    <string name="settings_label_bio">Add a few words about yourself</string>
+    <string name="settings_menu_change_name">Edit name</string>
+    <string name="settings_menu_exit">Log out</string>
+    <string name="cd_register_image">register_image</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="password">Password</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="login_to_continue">Login to continue</string>
+    <string name="sign_in">Sign In</string>
+    <string name="create_new_account">Create New Account</string>
+    <string name="add_image">Add Image</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="username">Username</string>
+    <string name="register_text_enter_code">Enter the code</string>
+    <string name="register_text_we_sent">We\'ve sent the code to your device</string>
+    <string name="next">Next</string>
+    <string name="we_will_send_you_an_one_time_password_on_this_phone_number">We will send you an One Time Password on this phone number</string>
+    <string name="_1234567890">1234567890</string>
+    <string name="check_your_phone">Check your phone</string>
+    <string name="didn_t_receive_the_otp">Didn\'t receive the OTP</string>
+    <string name="resend_otp">RESEND OTP</string>
+    <string name="verify">Verify</string>
+    <string name="OTP_SENT">OTP Sent</string>
+    <string name="last_name">Last name</string>
+    <string name="first_name">First name</string>
+    <string name="exit">Exit</string>
+    <string name="select_user">Select User</string>
+    <string name="type_a_message">Type a message</string>
+    <string name="search">Search</string>
+    <string name="tap_to_change_name_or_surname">Tap to change name or surname</string>
+
+</resources>

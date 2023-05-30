@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "70507743683",
+    "project_id": "jibber-f744c",
+    "storage_bucket": "jibber-f744c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70507743683:android:864751f82ac68607bcd576",
+        "android_client_info": {
+          "package_name": "com.example.jibber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "70507743683-5o2p3r26vvg2tn2ahcafruihvj2s3i7t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYt1m-hr7EMSNRKzT4JhTFaxCsa2x3dTo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "70507743683-5o2p3r26vvg2tn2ahcafruihvj2s3i7t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
