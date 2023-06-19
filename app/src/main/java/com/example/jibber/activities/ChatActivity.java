@@ -2,6 +2,7 @@ package com.example.jibber.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.example.jibber.models.User;
 import com.example.jibber.utilities.Constans;
 import com.example.jibber.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
+
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -25,6 +27,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.checkerframework.checker.units.qual.C;
 
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -56,6 +61,7 @@ public class ChatActivity extends AppCompatActivity {
         loadReceiverDetails();
         init();
         listenMessage();
+
     }
 
     private void init(){
@@ -63,7 +69,7 @@ public class ChatActivity extends AppCompatActivity {
         chatMessages = new ArrayList<>();
         chatAdapter = new ChatAdapter(
                 chatMessages,
-                //getBitmapFromEncodedString(receivedUser.image)
+                //getBitmapFromEncodedString(receivedUser.image),
                 null,
                 preferenceManager.getString(Constans.KEY_USER_ID)
         );
@@ -71,7 +77,7 @@ public class ChatActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
     }
 
-    private void sendMessage(){
+    private void sendMessage(){ // отправить сообщение
         HashMap<String, Object> message = new HashMap<>();
         message.put(Constans.KEY_SENDER_ID, preferenceManager.getString(Constans.KEY_USER_ID));
         message.put(Constans.KEY_RECEIVER_ID, receivedUser.id);
@@ -141,15 +147,22 @@ public class ChatActivity extends AppCompatActivity {
         }
     };
 
-    /*private Bitmap getBitmapFromEncodedString(String encodedImage){
+
+
+    private Bitmap getBitmapFromEncodedString(String encodedImage){
         byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-    }*/
+    }
 
     private void loadReceiverDetails(){
         receivedUser = (User) getIntent().getSerializableExtra(Constans.KEY_USER);
         binding.textName.setText(receivedUser.name);
         binding.textSurname.setText(receivedUser.surname);
+        // Отобразить фото собеседника в imageProfile
+        if (receivedUser.image != null) {
+            Bitmap bitmap = getBitmapFromEncodedString(receivedUser.image);
+            binding.imageProfile.setImageBitmap(bitmap);
+        }
     }
 
     private void setListeners(){

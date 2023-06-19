@@ -26,4 +26,5 @@ public class Constans {
     public static final String KEY_SENDER_SURNAME = "senderSurname";
     public static final String KEY_RECEIVER_SURNAME = "receiverSurname";
     public static final String KEY_LAST_MESSAGE = "lastMessage";
+    public static final String KEY_LANGUAGE = "language";
 }

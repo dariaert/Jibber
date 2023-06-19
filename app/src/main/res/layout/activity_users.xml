@@ -49,20 +49,6 @@
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp">
 
-            <EditText
-                android:id="@+id/inputSearch"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/background_input"
-                android:hint="@string/search"
-                android:layout_gravity="center_horizontal"
-                android:inputType="text"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:textColor="@color/black"
-                android:textSize="13sp"/>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/usersRecycleView"
                 android:layout_width="match_parent"

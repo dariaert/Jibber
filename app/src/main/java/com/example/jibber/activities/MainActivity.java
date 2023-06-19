@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import com.example.jibber.utilities.Constans;
 import com.example.jibber.utilities.PreferenceManager;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -52,7 +54,8 @@ public class MainActivity extends AppCompatActivity implements ConversionListene
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
         init();
-        loadUserDetails();
+        //loadUserDetails();
+        Dif();
         binding.bottomNavigationView.setBackground(null);
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
@@ -74,10 +77,8 @@ public class MainActivity extends AppCompatActivity implements ConversionListene
                     break;
 
                 case R.id.exit:
-                    Intent accountIntent = new Intent(this, AccountActivity.class);
-                    startActivity(accountIntent);
-                    finish();
-                    break;
+                    signOut();
+                    //break;
             }
             return  true;
         });
@@ -94,33 +95,47 @@ public class MainActivity extends AppCompatActivity implements ConversionListene
     }
 
     private void setListeners(){
-        binding.logout.setOnClickListener(v -> signOut());
         binding.fabNewChat.setOnClickListener( v ->
                 startActivity(new Intent(MainActivity.this, UsersActivity.class)));
         binding.imageProfile.setOnClickListener(v -> {
-            String name = preferenceManager.getString(Constans.KEY_NAME);
-            String surname = preferenceManager.getString(Constans.KEY_SURNAME);
-            String username = preferenceManager.getString(Constans.KEY_USERNAME);
-            String phoneNumber = preferenceManager.getString(Constans.KEY_PHONE_NUMBER);
-            String image = preferenceManager.getString(Constans.KEY_IMAGE);
+            String NOMER = preferenceManager.getString(Constans.KEY_PHONE_NUMBER);
             Intent intent = new Intent(MainActivity.this, AccountActivity.class);
-            intent.putExtra("name", name);
-            intent.putExtra("surname", surname);
-            intent.putExtra("username", username);
-            intent.putExtra("phoneNumber", phoneNumber);
-            intent.putExtra("image", image);
+            intent.putExtra("PHONENUM", NOMER);
             startActivity(intent);
         });
     }
 
-    private void loadUserDetails(){
-        // Получаем данные из SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
-        String name = sharedPreferences.getString(Constans.KEY_NAME, null);
-        String surname = sharedPreferences.getString(Constans.KEY_SURNAME, null);
-        String FULLNAME = "Hello, " + name + " " + surname + "!";
+    private void Dif(){
+        String PHONENUM = preferenceManager.getString(Constans.KEY_PHONE_NUMBER);
+        db.collection(Constans.KEY_COLLECTION_USERS).whereEqualTo("phone", PHONENUM)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (!task.getResult().isEmpty()) {
+                            DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                            // Документ существует, получаем данные
+                            String name = document.getString("name");
+                            String surname = document.getString("surname");
+                            String image = document.getString("image");
+                            loadUserDetailsFromDatabase(name, surname, image);
+                        } else {
+                            // Документ не существует
+                            Toast.makeText(MainActivity.this, "Пользователь не найден", Toast.LENGTH_SHORT).show();
+                            //loadUserDetails();
+                        }
+                    } else {
+                        // Обработка ошибки
+                        Log.d("Firestore", "Ошибка при получении данных из Firestore", task.getException());
+                        Toast.makeText(MainActivity.this, "Ошибка при загрузке данных", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
+
+    private void loadUserDetailsFromDatabase(String name, String surname, String image){
+        String FULLNAME    = name + " " + surname;
         binding.textName.setText(FULLNAME);
-        byte[] bytes = Base64.decode(sharedPreferences.getString(Constans.KEY_IMAGE, null), Base64.DEFAULT);
+        byte[] bytes = Base64.decode(image, Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0, bytes.length);
         binding.imageProfile.setImageBitmap(bitmap);
     }
@@ -188,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements ConversionListene
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(this::updateToken);
     }
 
-    private void updateToken(String token){
+    private void updateToken(String token){ // обновление токена в бд
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         DocumentReference documentReference =
                 database.collection(Constans.KEY_COLLECTION_USERS).document(
@@ -198,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements ConversionListene
                 .addOnFailureListener( e -> showToast("Unable to update token"));
     }
 
-    private void signOut(){
+    private void signOut(){ // выход из сессии
         showToast ("Signing out...");
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference documentReference =
@@ -218,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements ConversionListene
     }
 
     @Override
-    public void onConversionClicked(User user) {
+    public void onConversionClicked(User user) { //переход в сообщения с пользователем
         Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
         intent.putExtra(Constans.KEY_USER, user);
         startActivity(intent);

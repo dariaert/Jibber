@@ -58,7 +58,7 @@ public class RecentConversationsAdapter extends RecyclerView.Adapter<RecentConve
         }
 
         void setData(ChatMessage chatMessage){
-            //binding.imageProfile.setImageBitmap(getConversionImage(chatMessage.conversionImage));
+            binding.imageProfile.setImageBitmap(getConversionImage(chatMessage.conversionImage));
             binding.textName.setText(chatMessage.conversionName);
             binding.textSurname.setText(chatMessage.conversionSurname);
             binding.textRecentMessage.setText(chatMessage.message);
@@ -74,7 +74,13 @@ public class RecentConversationsAdapter extends RecyclerView.Adapter<RecentConve
     }
 
     private Bitmap getConversionImage(String encodedImage){
-        byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        if (encodedImage != null && !encodedImage.isEmpty()) {
+            byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        } else {
+            // Обработка случая, когда строка с изображением пустая или нулевая
+            // Верните альтернативное изображение по умолчанию
+            return null; // или верните альтернативное изображение по умолчанию
+        }
     }
 }

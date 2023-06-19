@@ -24,6 +24,7 @@ import com.example.jibber.R;
 import com.example.jibber.databinding.ActivitySignUpBinding;
 import com.example.jibber.utilities.Constans;
 import com.example.jibber.utilities.PreferenceManager;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
@@ -37,6 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
     Button buttonSignUp;
     TextView mesactual;
     FirebaseFirestore database = FirebaseFirestore.getInstance();
+    CollectionReference collectionRef;
 
     private ActivitySignUpBinding binding;
     private PreferenceManager preferenceManager;
@@ -92,15 +94,12 @@ public class SignUpActivity extends AppCompatActivity {
                                 buttonSignUp.setEnabled(false); // Делаем кнопку недоступной
                             }
                         });
-
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 // Не требуется
             }
         });
-
     }
 
     private void setListeners(){

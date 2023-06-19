@@ -16,8 +16,9 @@
         android:paddingEnd="12dp"
         android:paddingBottom="8dp"
         app:layout_constraintWidth_max="wrap"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="13sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.8" />

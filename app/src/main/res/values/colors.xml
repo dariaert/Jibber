@@ -15,5 +15,6 @@
     <color name="WhiteGray">#E1DBD7</color>
     <color name="Bezh">#FFF9F6</color>
     <color name="Error">#F44336</color>
+    <color name="GRAY">#444b54</color>
 
 </resources>

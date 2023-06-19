@@ -62,17 +62,26 @@
         app:layout_constraintTop_toTopOf="@id/imageBack"
         app:layout_constraintStart_toEndOf="@id/imageBack">
 
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imageProfile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/background_image"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@id/textMessage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:riv_oval="true"/>
+
         <TextView
             android:text="БОБИК"
             android:id="@+id/textName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="18sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -80,12 +89,11 @@
             android:id="@+id/textSurname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="18sp"
             android:textStyle="bold"/>
 
     </LinearLayout>

@@ -26,8 +26,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.concurrent.TimeUnit;
 
@@ -35,34 +37,31 @@ public class CodeActivity extends AppCompatActivity {
 
     private EditText inputCode1, inputCode2, inputCode3, inputCode4, inputCode5, inputCode6;
     private String verificationId;
+    CollectionReference collectionRef;
 
     private PreferenceManager preferenceManager;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    TextView textMobile;
     ActivityCodeBinding binding;
-
-    //public int count;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferenceManager = new PreferenceManager(getApplicationContext());
-        if (preferenceManager.getBoolean(Constans.KEY_IS_SIGNED_IN)){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
         binding = ActivityCodeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        TextView textMobile = findViewById(R.id.textMobile);
+        preferenceManager = new PreferenceManager(getApplicationContext());
+
+        String phoneN = "+7" + getIntent().getStringExtra("mobile");
+        if (preferenceManager.getBoolean(Constans.KEY_IS_SIGNED_IN)){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            //intent.putExtra("NUMBER", phoneN);
+            startActivity(intent);
+            finish();
+        }
+        textMobile = findViewById(R.id.textMobile);
         textMobile.setText(String.format(
                 "+7-%s",getIntent().getStringExtra("mobile")
         ));
-
-        String phoneN = "+7" + getIntent().getStringExtra("mobile");
-        /*Intent intent = new Intent(CodeActivity.this, SignUpActivity.class);
-        intent.putExtra("mobile", phoneN);*/
-
         inputCode1 = findViewById(R.id.inputCode1);
         inputCode2 = findViewById(R.id.inputCode2);
         inputCode3 = findViewById(R.id.inputCode3);
@@ -121,6 +120,7 @@ public class CodeActivity extends AppCompatActivity {
                                                         preferenceManager.putBoolean(Constans.KEY_IS_SIGNED_IN, true);
                                                         preferenceManager.putString(Constans.KEY_USER_ID, documentSnapshot.getId());
                                                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                            preferenceManager.putString(Constans.KEY_PHONE_NUMBER, phoneN);
                                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                             startActivity(intent);
                                                         } else {
@@ -263,6 +263,5 @@ public class CodeActivity extends AppCompatActivity {
             }
         });
     }
-
 
 }

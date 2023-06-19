@@ -43,5 +43,9 @@
     <string name="type_a_message">Type a message</string>
     <string name="search">Search</string>
     <string name="tap_to_change_name_or_surname">Tap to change name or surname</string>
+    <string name="about_me">About me</string>
+    <string name="status_change_username">Имя пользователя не изменено</string>
+    <string name="write_a_few_words_about_yourself">Write a few words about yourself</string>
+    <string name="change_your_bio">Change your Bio</string>
 
 </resources>

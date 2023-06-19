@@ -24,23 +24,23 @@ public class SignInActivity extends AppCompatActivity {
 
     ActivitySignInBinding binding;
     private PreferenceManager preferenceManager;
+    EditText inputMobile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivitySignInBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
+
+        inputMobile = findViewById(R.id.inputMobile);
         if (preferenceManager.getBoolean(Constans.KEY_IS_SIGNED_IN)){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), CodeActivity.class);
             startActivity(intent);
             finish();
         }
-        binding = ActivitySignInBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
 
-        final EditText inputMobile = findViewById(R.id.inputMobile);
         final Button buttonGetOTP = findViewById(R.id.buttonGetOTP);
-
         final ProgressBar progressBar = findViewById(R.id.progressBar);
-
 
         buttonGetOTP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +80,7 @@ public class SignInActivity extends AppCompatActivity {
                                 intent.putExtra("mobile", inputMobile.getText().toString());
                                 intent.putExtra("verificationId", verificationId);
                                 startActivity(intent);
+                                finish();
                             }
                         }
                 );
