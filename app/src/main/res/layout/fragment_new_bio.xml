@@ -9,13 +9,13 @@
     android:background="@color/white"
     tools:context=".fragments.NewBio">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/line1"
-        android:layout_width="336dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="19dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -26,15 +26,17 @@
             android:backgroundTint="@color/orange"
             android:padding="6dp"
             android:src="@drawable/ic_back"
-            android:tint="@color/white" />
+            android:tint="@color/white"
+            tools:ignore="MissingConstraints" />
 
         <TextView
-            android:layout_width="270dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            tools:ignore="MissingConstraints"
+            app:layout_constraintBottom_toBottomOf="@id/imageBack"
+            app:layout_constraintStart_toEndOf="@id/imageBack"
+            app:layout_constraintTop_toTopOf="@id/imageBack"
+            app:layout_constraintEnd_toStartOf="@id/imageOk"/>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageOk"
@@ -44,15 +46,19 @@
             android:backgroundTint="@color/orange"
             android:padding="6dp"
             android:src="@drawable/round_check_24"
-            android:tint="@color/white" />
+            android:tint="@color/white"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/line2"
-        android:layout_width="333dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:orientation="vertical">
 
         <TextView

@@ -37,7 +37,6 @@ public class CodeActivity extends AppCompatActivity {
 
     private EditText inputCode1, inputCode2, inputCode3, inputCode4, inputCode5, inputCode6;
     private String verificationId;
-    CollectionReference collectionRef;
 
     private PreferenceManager preferenceManager;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -54,7 +53,7 @@ public class CodeActivity extends AppCompatActivity {
         String phoneN = "+7" + getIntent().getStringExtra("mobile");
         if (preferenceManager.getBoolean(Constans.KEY_IS_SIGNED_IN)){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            //intent.putExtra("NUMBER", phoneN);
+
             startActivity(intent);
             finish();
         }
